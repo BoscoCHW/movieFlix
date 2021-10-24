@@ -9,7 +9,7 @@ const getMovies = () => {
                     const [title, description] = movie.split(":");
                     return {title, description};
                 });
-                resolve(movies);                
+                resolve(movies);           
             })
             .catch(err => reject(err))
 

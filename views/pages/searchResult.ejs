@@ -9,8 +9,13 @@
 </head>
 
 <body>
-  <!-- Your Code Goes Here -->
-
+  <% if(found){ %>
+    <h1><%= item.title %></h1>
+    <p><%= item.description %></p>
+    <a href="/">Home</a>
+  <% } else{ %>
+    <h1>No movie was found</h1>
+  <% } %>
 </body>
 
 </html>

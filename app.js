@@ -7,6 +7,8 @@
 const express = require("express");
 const { getMovies } = require("./helpers")
 
+const NAME = 'Adel';
+
 let app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -15,7 +17,10 @@ app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   getMovies().then(movies => {
-    res.render("pages/index", {movies})
+    res.render("pages/index", {
+      name: NAME,
+      movies
+    })
   })
   .catch(err => console.log(err));
 });
@@ -44,7 +49,19 @@ app.get("/myListQueryString", (req, res) => {
 });
 
 app.get("/search/:movieName", (req, res) => {
-  // Add your implementation here
+  const param = req.params.movieName;
+  getMovies().then(movies => {
+    for (item of movies) {
+      let title = item.title.toLowerCase().replace(/ /g, "")
+      if (title.includes(param)) {
+        res.render('pages/searchResult', {
+          found: true,
+          item
+        })
+      } 
+    } res.render("pages/searchResult", {found: false})
+  })
+  .catch(err => console.log(err));
 });
 
 app.listen(3000, () => {
