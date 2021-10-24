@@ -17,26 +17,15 @@
     <form>
       <fieldset class="todo-list">
         <legend class="todo-list__title">My Movie List</legend>
-        <label class="todo-list__label">
-          <input type="checkbox" name="" id="" />
-          <i class="check"></i>
-          <span>Inception</span>
-        </label>
-        <label class="todo-list__label">
-          <input type="checkbox" name="" id="" />
-          <i class="check"></i>
-          <span>Spiderman</span>
-        </label>
-        <label class="todo-list__label">
-          <input type="checkbox" name="" id="" />
-          <i class="check"></i>
-          <span>The Dark Knight</span>
-        </label>
-        <label class="todo-list__label">
-          <input type="checkbox" name="" id="" />
-          <i class="check"></i>
-          <span>Tenet</span>
-        </label>
+
+        <% movies.forEach((movie) => { %>
+          <label class="todo-list__label">
+            <input type="checkbox" name="" id="" />
+            <i class="check"></i>
+            <span><%= movie.title %></span>
+          </label>
+          <% }) %>
+        
       </fieldset>
     </form>
   </div>

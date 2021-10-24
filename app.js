@@ -5,6 +5,7 @@
  (Make sure you also specify on the Google Doc) 
 */
 const express = require("express");
+const { getMovies } = require("./helpers")
 
 let app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -12,16 +13,34 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 
-app.get("/", (req, res) => res.render("pages/index"));
+app.get("/", (req, res) => {
+  getMovies().then(movies => {
+    res.render("pages/index", {movies})
+  })
+  .catch(err => console.log(err));
+});
 
 app.get("/myForm", (req, res) => res.render("pages/myForm"));
 
-app.post("myForm", (req, res) => {
-  // Add your implementation here 
+app.post("/myForm", (req, res) => {
+  const formData = req.body;
+  const movies = formData.myMovies.split(',').map(movieTitle => {
+    const movie = {
+      title: movieTitle
+    };
+    return movie;
+  });
+  res.render("pages/index", {movies});
 });
 
 app.get("/myListQueryString", (req, res) => {
-  // Add your implementation here
+  const query = req.query;
+  let movies = []
+  for (movieNum in query) {
+    const movie = {title: query[movieNum]};
+    movies.push(movie);
+  }
+  res.render("pages/index", { movies });
 });
 
 app.get("/search/:movieName", (req, res) => {
