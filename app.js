@@ -1,7 +1,7 @@
 /*
  Authors: Heung Wai Chan (Bosco), Adel Kuanysheva
  Your name and student #: Heung Wai Chan (Bosco) A01258687
- Your Partner's Name and student #: Adel Kuanyshiva A01258780
+ Your Partner's Name and student #: Adel Kuanysheva A01258780
  (Make sure you also specify on the Google Doc) 
 */
 const express = require("express");
