@@ -31,11 +31,11 @@ app.post("/myForm", (req, res) => {
   const formData = req.body;
   const movies = formData.myMovies.split(',').map(movieTitle => {
     const movie = {
-      title: movieTitle
+      title: movieTitle.trim()
     };
     return movie;
   });
-  res.render("pages/index", {movies});
+  res.render("pages/index", {movies, name: NAME});
 });
 
 app.get("/myListQueryString", (req, res) => {
@@ -45,7 +45,7 @@ app.get("/myListQueryString", (req, res) => {
     const movie = {title: query[movieNum]};
     movies.push(movie);
   }
-  res.render("pages/index", { movies });
+  res.render("pages/index", { movies, name: NAME });
 });
 
 app.get("/search/:movieName", (req, res) => {
@@ -57,8 +57,7 @@ app.get("/search/:movieName", (req, res) => {
         res.render('pages/searchResult', {
           found: true,
           item
-        }) 
-        break
+        })
       } 
     } res.render("pages/searchResult", {found: false})
   })
