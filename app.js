@@ -51,18 +51,21 @@ app.get("/myListQueryString", (req, res) => {
 app.get("/search/:movieName", (req, res) => {
   const param = req.params.movieName;
   getMovies().then(movies => {
+    let found = false;
+    let movie = null;
     for (item of movies) {
       let title = item.title.toLowerCase().replace(/ /g, "")
-      if (title.includes(param)) {
-        res.render('pages/searchResult', {
-          found: true,
-          item
-        })
+      if (param.includes(title)) {
+        found = true
+        movie = item
+        break
       } 
-    } res.render("pages/searchResult", {found: false})
+    }
+    res.render("pages/searchResult", {found, movie})
   })
   .catch(err => console.log(err));
 });
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000 🚀");
